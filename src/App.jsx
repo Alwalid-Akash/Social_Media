@@ -9,21 +9,25 @@ import Postlist from './components/PostList';
 
 
 function App() {
+  const [selectedTab, setselectedTab] = useState("Home");
+
   return (
-    <>
-      <div className='app_container'>
-        < Sidebar />
-        <div className=' content'>
-          <Header />
-          <CreatePost />
-          <Postlist />
-          <Footer />
-        </div>
+
+    <div className='app_container'>
+      < Sidebar selectedTab={selectedTab} setselectedTab={setselectedTab} />
+      <div className=' content'>
+
+        <Header />
+        {selectedTab === "Home" ? (<Postlist />) : (<CreatePost />)}
+
+
+        <Footer />
       </div>
+    </div>
 
 
 
-    </>
+
   );
 }
 
