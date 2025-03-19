@@ -39,7 +39,6 @@ const PostListProvider = ({ children }) => {
   const deletePost = () => { };
 
   return (
-
     <Postlist.Provider value={{ postlist, addPost, deletePost }}>
       {children}
     </Postlist.Provider>
