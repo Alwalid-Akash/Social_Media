@@ -5,6 +5,7 @@ const PostList = () => {
   return (
     <>
       <Post />
+
       <Post />
       <Post />
     </>
