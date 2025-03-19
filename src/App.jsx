@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import CreatePost from './components/CreatePost';
 import Postlist from './components/PostList';
+import PostListProvider from './store/post-list-store';
 
 
 function App() {
@@ -13,20 +14,20 @@ function App() {
 
   return (
 
-    <div className='app_container'>
-      < Sidebar selectedTab={selectedTab} setselectedTab={setselectedTab} />
-      <div className=' content'>
+    <PostListProvider>
+      <div className='app_container'>
+        < Sidebar selectedTab={selectedTab} setselectedTab={setselectedTab} />
+        <div className=' content'>
 
-        <Header />
-        {selectedTab === "Home" ? (<Postlist />) : (<CreatePost />)}
+          <Header />
+          {selectedTab === "Home" ? (<Postlist />) : (<CreatePost />)}
 
 
-        <Footer />
+          <Footer />
+        </div>
       </div>
-    </div>
 
-
-
+    </PostListProvider>
 
   );
 }
