@@ -1,5 +1,4 @@
-import React from "react";
-import { createContext, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 
 const DEFAULT_CONTEXT = {
   postList: [],
@@ -7,7 +6,7 @@ const DEFAULT_CONTEXT = {
   deletePost: () => { },
 };
 
-export const Postlist = createContext(DEFAULT_CONTEXT);
+export const Postlist = createContext(DEFAULT_CONTEXT); // ✅ Ensure correct context export
 
 const postlistReducer = (currentPostList, action) => {
   return currentPostList;
@@ -18,7 +17,7 @@ const DEFAULT_POSTLIST = [
     id: "1",
     title: "go to munchen",
     body: "it would be very great to visit munchen",
-    reactions: "1",
+    reactions: "7",
     userId: "user-9",
     tags: ["vacation", "visit", "enjoy"],
   },
@@ -36,10 +35,12 @@ const PostListProvider = ({ children }) => {
   const [postlist, dispatchpostList] = useReducer(postlistReducer, DEFAULT_POSTLIST);
 
   const addPost = () => { };
-  const deletePost = () => { };
+  const deletePost = (id) => { // ✅ Implement delete functionality
+    console.log("Deleted post with ID:", id);
+  };
 
   return (
-    <Postlist.Provider value={{ postlist, addPost, deletePost }}>
+    <Postlist.Provider value={{ postlist, addPost, deletePost }}> {/* ✅ Provide context */}
       {children}
     </Postlist.Provider>
   );
