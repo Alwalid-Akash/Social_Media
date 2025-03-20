@@ -7,7 +7,7 @@ const DEFAULT_CONTEXT = {
   deletePost: () => { },
 };
 
-const Postlist = createContext(DEFAULT_CONTEXT);
+export const Postlist = createContext(DEFAULT_CONTEXT);
 
 const postlistReducer = (currentPostList, action) => {
   return currentPostList;
