@@ -45,4 +45,4 @@ const PostListProvider = ({ children }) => {
   );
 };
 
-export default PostListProvider
+export default PostListProvider;
