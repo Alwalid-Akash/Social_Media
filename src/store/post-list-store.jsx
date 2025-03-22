@@ -6,17 +6,25 @@ const DEFAULT_CONTEXT = {
   deletePost: () => { },
 };
 
-export const Postlist = createContext(DEFAULT_CONTEXT); // ✅ Ensure correct context export
+export const Postlist = createContext(DEFAULT_CONTEXT);
 
 const postlistReducer = (currentPostList, action) => {
-  return currentPostList;
+  let newPostList = currentPostList; // Initialize newPostList
+
+  if (action.type === "DELETE_POST") {
+    newPostList = currentPostList.filter((post) => post.id !== action.payload.postId);
+  } else if (action.type === "ADD_POST") {
+    newPostList = [action.payload, ...currentPostList];
+  }
+
+  return newPostList; // Return updated newPostList
 };
 
 const DEFAULT_POSTLIST = [
   {
     id: "1",
-    title: "go to munchen",
-    body: "it would be very great to visit munchen",
+    title: "go to germany",
+    body: "it would be very great if you  visit TU Chemnitz",
     reactions: "7",
     userId: "user-9",
     tags: ["vacation", "visit", "enjoy"],
@@ -34,13 +42,31 @@ const DEFAULT_POSTLIST = [
 const PostListProvider = ({ children }) => {
   const [postlist, dispatchpostList] = useReducer(postlistReducer, DEFAULT_POSTLIST);
 
-  const addPost = () => { };
-  const deletePost = (id) => { // ✅ Implement delete functionality
-    console.log("Deleted post with ID:", id);
+  const addPost = (userId, title, body, reactions, tags) => {
+    const newPost = {
+      id: Date.now(),  // Unique ID (you could also use something else)
+      userId: userId,
+      title: title,
+      body: body,
+      reactions: reactions,
+      tags: tags  // Assuming tags are passed as a comma-separated string
+    };
+
+    dispatchpostList({
+      type: "ADD_POST",
+      payload: newPost,
+    });
+  };
+
+  const deletePost = (postId) => {
+    dispatchpostList({
+      type: "DELETE_POST",
+      payload: { postId },
+    });
   };
 
   return (
-    <Postlist.Provider value={{ postlist, addPost, deletePost }}> {/* ✅ Provide context */}
+    <Postlist.Provider value={{ postlist, addPost, deletePost }}>
       {children}
     </Postlist.Provider>
   );
